@@ -1,0 +1,224 @@
+@import '~sanitize.css';
+@import '~sanitize.css/forms.css';
+@import '~sanitize.css/typography.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media print {
+  @page {
+    size: A4;
+  }
+
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+:root {
+  --mobile-min-width: 320px;
+  --mobile-min-height: 568px;
+  --tablet-min-width_1: 767px;
+  --tablet-min-width: 768px;
+  --tablet-max-width: 1366px;
+  --desktop-min-width: 1440px;
+  --hd-desktop-min-width: 1920px;
+}
+
+html,
+body {
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  line-height: 1.6rem;
+  word-break: normal;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  width: 100%;
+}
+
+/* ✅ 전역 h2 배경 제거 (필요하면 Hero 태그라인만 hero-highlight로 처리) */
+/* h2 {
+  background: rgb(38 38 38);
+} */
+
+/* ✅ Hero 태그라인 전용 형광펜 박스 (GitHub Code 버튼 그린) */
+/* Hero 태그라인 형광펜 박스 */
+.hero-highlight {
+  background-color: rgba(46, 160, 67, 0.15); /* 거의 투명 */
+  color: rgb(243 244 246);
+  padding: 0.9rem 1.8rem;
+  border-radius: 1rem;
+  display: inline-block;
+  line-height: 1.4;
+}
+
+a {
+  color: rgb(56 189 248); /* sky-400 */
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:focus,
+a:hover {
+  text-decoration: underline;
+}
+
+textarea {
+  border: none;
+  line-height: 1.75rem;
+}
+
+b {
+  font-weight: bold;
+}
+
+table {
+  border-width: 1px;
+  width: 100%;
+}
+
+table thead td {
+  border-width: 1px;
+  color: rgb(229 231 235); /* gray-200 */
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+table tbody td {
+  border-width: 1px;
+  line-height: 1.5rem;
+  padding: 0.5rem;
+}
+
+ol,
+dl {
+  list-style: inside;
+  list-style-position: outside;
+}
+
+ol {
+  margin-left: 1.2rem;
+}
+
+ol > li {
+  margin: 0.5rem 0;
+}
+
+pre {
+  display: inline;
+  font-size: 0.9rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: rgb(38 38 38); /* neutral-800 */
+  color: rgb(243 244 246); /* gray-100 */
+}
+
+strong {
+  font-weight: 600;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  padding: 0.3rem 0.25rem 0.05rem;
+  margin-right: 0.1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  background-color: rgb(38 38 38); /* neutral-800 */
+  color: rgb(243 244 246); /* gray-100 */
+}
+
+/* =========================
+   Dark overrides (force swap)
+   ========================= */
+@layer utilities {
+  html,
+  body {
+    color: rgb(243 244 246); /* gray-100 */
+  }
+
+  /* Tailwind light utility classes -> dark */
+  .bg-white {
+    background-color: rgb(23 23 23) !important; /* neutral-900 */
+  }
+
+  .bg-gray-50 {
+    background-color: rgb(23 23 23 / 0.6) !important; /* neutral-900/60 */
+  }
+
+  .bg-gray-100 {
+    background-color: rgb(38 38 38) !important; /* neutral-800 */
+  }
+
+  .bg-slate-50 {
+    background-color: rgb(23 23 23) !important; /* neutral-900 */
+  }
+
+  .bg-slate-100 {
+    background-color: rgb(38 38 38) !important; /* neutral-800 */
+  }
+
+  .bg-slate-200 {
+    background-color: rgb(51 65 85) !important; /* slate-700-ish */
+  }
+
+  .border-gray-200,
+  .border-gray-300 {
+    border-color: rgb(64 64 64) !important; /* neutral-700 */
+  }
+
+  .text-gray-700 {
+    color: rgb(229 231 235) !important; /* gray-200 */
+  }
+
+  .text-gray-600,
+  .text-gray-500 {
+    color: rgb(156 163 175) !important; /* gray-400 */
+  }
+
+  pre,
+  code {
+    background-color: rgb(38 38 38) !important;
+    color: rgb(243 244 246) !important;
+  }
+
+  /* ✅ 마지막 남은 “상단 흰 박스” (inline style로 박힌 흰 배경)까지 강제 다크 */
+  [style*='background-color:#fff'],
+  [style*='background-color: #fff'],
+  [style*='background:#fff'],
+  [style*='background: #fff'],
+  [style*='background-color: rgb(255'],
+  [style*='background: rgb(255'] {
+    background-color: rgb(23 23 23) !important; /* neutral-900 */
+  }
+}
