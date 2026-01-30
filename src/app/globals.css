@@ -335,6 +335,230 @@ code {
 }
 
 /* =========================
+   Premium Glass Card Styles
+   ========================= */
+
+/* Glass card with subtle glow */
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 4px 24px -4px rgba(0, 0, 0, 0.3),
+    0 0 40px -20px rgba(59, 130, 246, 0.15);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 8px 32px -4px rgba(0, 0, 0, 0.4),
+    0 0 60px -20px rgba(59, 130, 246, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Premium section card */
+.section-card {
+  background: linear-gradient(
+    180deg,
+    rgba(23, 23, 23, 0.8) 0%,
+    rgba(15, 15, 15, 0.9) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+}
+
+/* Glowing accent border */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.3),
+    rgba(147, 51, 234, 0.2),
+    rgba(59, 130, 246, 0.1)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-border:hover::after {
+  opacity: 1;
+}
+
+/* Premium section header */
+.premium-section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.premium-section-header h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.premium-section-header .icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.1) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Status badge with glow */
+.status-badge-glow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 9999px;
+  color: rgb(167, 243, 208);
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.4);
+}
+
+/* Improved hero highlight */
+.hero-highlight {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.12) 0%,
+    rgba(147, 51, 234, 0.08) 50%,
+    rgba(59, 130, 246, 0.06) 100%
+  );
+  color: rgb(245 245 245);
+  padding: 1.25rem 2.5rem;
+  border-radius: 1rem;
+  display: inline-block;
+  line-height: 1.5;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 4px 20px -4px rgba(59, 130, 246, 0.2);
+}
+
+/* Premium table styling */
+.premium-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(18, 18, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.premium-table thead th,
+.premium-table thead td {
+  background: rgba(30, 30, 30, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(163, 163, 163, 1);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.premium-table tbody td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 1rem 1.25rem;
+  color: rgba(229, 231, 235, 1);
+  transition: background 0.2s ease;
+}
+
+.premium-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.premium-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Improved timeline dot */
+.timeline-dot {
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: rgb(147, 197, 253);
+  box-shadow: 0 0 20px -5px rgba(59, 130, 246, 0.4);
+}
+
+.timeline-dot.past {
+  background: linear-gradient(135deg, rgba(115, 115, 115, 0.2) 0%, rgba(115, 115, 115, 0.1) 100%);
+  border-color: rgba(115, 115, 115, 0.3);
+  color: rgb(163, 163, 163);
+  box-shadow: none;
+}
+
+/* =========================
    Dark overrides (force swap)
    ========================= */
 @layer utilities {

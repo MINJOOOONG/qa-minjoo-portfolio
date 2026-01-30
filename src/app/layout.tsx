@@ -1,3 +1,7 @@
+import { GoogleAnalytics } from '@next/third-parties/google'
+import { Metadata, Viewport } from 'next'
+import localFont from 'next/font/local'
+
 import {
   APPLICATION_NAME,
   APPLICATION_SHORT_NAME,
@@ -10,11 +14,8 @@ import {
   THEME_COLOR,
 } from '../common/constants'
 import { LayoutProps } from '../common/types'
+import { LanguageProvider } from '../contexts/LanguageContext'
 import './globals.css'
-
-import { GoogleAnalytics } from '@next/third-parties/google'
-import { Metadata, Viewport } from 'next'
-import localFont from 'next/font/local'
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
@@ -104,9 +105,11 @@ export default function RootLayout({ children }: LayoutProps) {
         <div className="animated-bg-vignette" aria-hidden="true" />
 
         {/* Main content */}
-        <div className="relative z-0">
-          {children}
-        </div>
+        <LanguageProvider>
+          <div className="relative z-0">
+            {children}
+          </div>
+        </LanguageProvider>
 
         {NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={NEXT_PUBLIC_GA_ID} />}
       </body>
