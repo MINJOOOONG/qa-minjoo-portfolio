@@ -97,15 +97,41 @@ const InfoItem = ({ label, children }: { label?: string; children: ReactNode }) 
   </div>
 )
 
+// Blog icon SVG component
+const BlogIcon = () => (
+  <svg className="w-4 h-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+    />
+  </svg>
+)
+
 // Social link component
-const SocialLink = ({ href, icon, text }: { href: string; icon: string; text: string }) => (
+const SocialLink = ({
+  href,
+  icon,
+  text,
+  useBlogIcon,
+}: {
+  href: string
+  icon?: string
+  text: string
+  useBlogIcon?: boolean
+}) => (
   <a
     href={href}
     target="_blank"
     rel="noreferrer"
     className="inline-flex items-center gap-2 text-sm font-medium text-gray-200 hover:text-white transition"
   >
-    <Image src={icon} alt={text.split('/')[0]} width={16} height={16} className="opacity-80" />
+    {useBlogIcon ? (
+      <BlogIcon />
+    ) : (
+      <Image src={icon!} alt={text.split('/')[0]} width={16} height={16} className="opacity-80" />
+    )}
     {text}
   </a>
 )
@@ -114,14 +140,18 @@ const socialLinks = [
   {
     href: 'https://github.com/MINJOOOONG',
     icon: '/images/github.svg',
-    text: 'https://github.com/MINJOOOONG',
+    text: 'github.com/MINJOOOONG',
   },
   {
     href: 'https://www.linkedin.com/in/minjooooo/',
     icon: '/images/LinkedIn_icon.svg',
-    text: 'www.linkedin.com/in/minjooooo',
+    text: 'linkedin.com/in/minjooooo',
   },
-  { href: 'https://velog.io/@gwak2837', icon: '/images/velog.png', text: 'velog.io/@gwak2837' },
+  {
+    href: 'https://minjoolog.tistory.com/',
+    text: 'minjoolog.tistory.com',
+    useBlogIcon: true,
+  },
 ]
 
 export default function Hero({ lang }: Props) {

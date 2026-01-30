@@ -16,7 +16,6 @@ import Education from './Education'
 import Hero from './Hero'
 import LanguageUpdate from './LanguageUpdate'
 import OtherCertificates from './OtherCertificates'
-import Portpolio from './Portpolio'
 import TechStack from './TechStack'
 import WorkExperiences, { TechBadge } from './WorkExperiences'
 
@@ -28,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const lang = (await params).lang as 'ko' | 'en'
 
   if (lang === 'ko') return { title: APPLICATION_NAME }
-  if (lang === 'en') return { title: `Minjoo ${getISODate(new Date())} Resume Portpolio` }
+  if (lang === 'en') return { title: `Minjoo ${getISODate(new Date())} Resume Portfolio` }
 
   return { title: APPLICATION_NAME }
 }
@@ -192,7 +191,6 @@ export default async function HomePage({ params }: PageProps) {
       <div className="w-full text-center text-sm text-slate-300 mt-8">작성일: {date}</div>
       <div className="w-full text-center text-sm text-slate-300">{generalDict.작성자[lang]}</div>
       <div className="my-8" />
-      <Portpolio date={date} />
     </main>
   )
 }

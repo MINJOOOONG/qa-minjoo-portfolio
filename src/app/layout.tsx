@@ -97,9 +97,17 @@ export default function RootLayout({ children }: LayoutProps) {
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
       <body
-        className={`${PretendardVariable.className} antialiased min-h-screen bg-neutral-900 text-gray-100`}
+        className={`${PretendardVariable.className} antialiased min-h-screen text-gray-100`}
       >
-        {children}
+        {/* Animated background */}
+        <div className="animated-bg" aria-hidden="true" />
+        <div className="animated-bg-vignette" aria-hidden="true" />
+
+        {/* Main content */}
+        <div className="relative z-0">
+          {children}
+        </div>
+
         {NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={NEXT_PUBLIC_GA_ID} />}
       </body>
     </html>

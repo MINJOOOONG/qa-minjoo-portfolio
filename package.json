@@ -16,8 +16,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier . --write",
-    "test": "jest",
-    "postinstall": "husky install"
+    "test": "jest"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.0",
