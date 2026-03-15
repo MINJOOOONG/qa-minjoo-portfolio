@@ -2,6 +2,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 
+import { ssronetHandwritten } from './fonts'
 import {
   APPLICATION_NAME,
   APPLICATION_SHORT_NAME,
@@ -69,51 +70,32 @@ const PretendardVariable = localFont({
   display: 'swap',
   weight: '400 700',
   fallback: [
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'system-ui',
-    'Roboto',
-    'Helvetica Neue',
-    'Segoe UI',
-    'Apple SD Gothic Neo',
-    'Noto Sans KR',
-    'Malgun Gothic',
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol',
-    'sans-serif',
+    '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto',
+    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    'Malgun Gothic', 'sans-serif',
   ],
 })
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="ko">
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-      <link rel="mask-icon" href="/safari-pinned-tab.svg" color={THEME_COLOR} />
-      <meta name="msapplication-TileColor" content="#2b5797" />
-      <meta name="mobile-web-app-capable" content="yes" />
-      <meta name="subject" content={DESCRIPTION} />
-      <meta name="rating" content="general" />
-      <meta name="revisit-after" content="3 days" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      <head>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color={THEME_COLOR} />
+        <meta name="msapplication-TileColor" content="#2b5797" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="subject" content={DESCRIPTION} />
+        <meta name="rating" content="general" />
+        <meta name="revisit-after" content="3 days" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      </head>
 
-      <body
-        className={`${PretendardVariable.className} antialiased min-h-screen text-gray-100`}
-      >
-        {/* Animated background */}
-        <div className="animated-bg" aria-hidden="true" />
-        <div className="animated-bg-vignette" aria-hidden="true" />
-
-        {/* Main content */}
+      <body className={`${PretendardVariable.className} ${ssronetHandwritten.variable} antialiased`}>
         <LanguageProvider>
-          <div className="relative z-0">
-            {children}
-          </div>
+          {children}
         </LanguageProvider>
-
         {NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={NEXT_PUBLIC_GA_ID} />}
       </body>
     </html>
   )
 }
-

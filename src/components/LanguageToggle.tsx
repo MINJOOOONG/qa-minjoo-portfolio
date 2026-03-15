@@ -6,6 +6,8 @@ const languages: { code: Language; label: string }[] = [
   { code: 'ko', label: 'KR' },
   { code: 'en', label: 'EN' },
   { code: 'ja', label: 'JP' },
+  { code: 'zh', label: 'CN' },
+  { code: 'fr', label: 'FR' },
 ]
 
 export default function LanguageToggle() {
@@ -13,11 +15,11 @@ export default function LanguageToggle() {
 
   if (isLoading) {
     return (
-      <div className="flex gap-1 p-1 bg-neutral-800/50 rounded-lg border border-neutral-700">
+      <div className="flex gap-0.5 p-1 border border-[var(--border)] rounded-full bg-[var(--bg-surface)]">
         {languages.map((l) => (
           <div
             key={l.code}
-            className="px-3 py-1.5 text-sm font-medium rounded-md bg-transparent text-neutral-500"
+            className="px-2 py-1 text-xs font-medium rounded-full text-[var(--text-muted)]"
           >
             {l.label}
           </div>
@@ -27,17 +29,17 @@ export default function LanguageToggle() {
   }
 
   return (
-    <div className="flex gap-1 p-1 bg-neutral-800/50 rounded-lg border border-neutral-700">
+    <div className="flex gap-0.5 p-1 border border-[var(--border)] rounded-full bg-[var(--bg-surface)]">
       {languages.map((l) => (
         <button
           key={l.code}
           onClick={() => setLang(l.code)}
           className={`
-            px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-150
+            px-2 py-1 text-xs font-medium rounded-full transition-all duration-150
             ${
               lang === l.code
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'bg-transparent text-neutral-400 hover:text-neutral-200 hover:bg-neutral-700/50'
+                ? 'bg-[var(--accent)] text-white'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-sub)] hover:bg-[var(--bg-elevated)]'
             }
           `}
           aria-pressed={lang === l.code}

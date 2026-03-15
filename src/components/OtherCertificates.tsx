@@ -3,15 +3,15 @@
 import { useLanguage } from '../contexts/LanguageContext'
 import { certificatesDict } from '../dictionaries/certificates'
 import { formatDate, formatSession } from '../dictionaries/utils'
-import { getDictValue } from '../hooks/useDictionary'
+import { useDictTranslation } from '../hooks/useDictionary'
 
 export default function OtherCertificates() {
   const { lang } = useLanguage()
-  const d = (key: keyof typeof certificatesDict) => getDictValue(certificatesDict[key], lang)
+  const d = useDictTranslation(certificatesDict)
 
   return (
     <details className="mt-4">
-      <summary className="w-fit mx-auto text-slate-500 text-sm cursor-pointer hover:text-slate-700 transition">
+      <summary className="w-fit mx-auto text-[var(--text-muted)] text-sm cursor-pointer hover:text-[var(--text-sub)] transition">
         {d('기타자격증보기')}
       </summary>
       <table className="mt-2">

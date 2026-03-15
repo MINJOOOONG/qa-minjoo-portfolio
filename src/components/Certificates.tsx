@@ -3,11 +3,11 @@
 import { useLanguage } from '../contexts/LanguageContext'
 import { certificatesDict } from '../dictionaries/certificates'
 import { formatDate, formatSession } from '../dictionaries/utils'
-import { getDictValue } from '../hooks/useDictionary'
+import { useDictTranslation } from '../hooks/useDictionary'
 
 export default function Certificates() {
   const { lang } = useLanguage()
-  const d = (key: keyof typeof certificatesDict) => getDictValue(certificatesDict[key], lang)
+  const d = useDictTranslation(certificatesDict)
 
   return (
     <table>

@@ -114,10 +114,8 @@ type DictValue<T> = {
   ja?: T
 }
 
-type Dictionary<T> = Record<string, DictValue<T>>
-
 /**
- * @deprecated Use useDict instead for Papago-based translation
+ * @deprecated Use useDictTranslation instead
  */
 export function getDictValue<T>(value: DictValue<T>, lang: Language): T {
   if (value[lang] !== undefined) {
@@ -126,71 +124,84 @@ export function getDictValue<T>(value: DictValue<T>, lang: Language): T {
   return value.ko
 }
 
-/**
- * @deprecated Use useDict instead for Papago-based translation
- */
-export function useDictionary<T>(dict: Dictionary<T>): Record<string, T> {
-  const { lang } = useLanguage()
+// ============================================================
+// API-based translation hook
+// ============================================================
 
-  const result: Record<string, T> = {}
-
-  for (const key in dict) {
-    const value = dict[key]
-    result[key] = getDictValue(value, lang)
-  }
-
-  return result
-}
+type StaticDict = Record<string, { ko: any; en?: any; ja?: any }>
 
 /**
- * @deprecated Use useDict instead for Papago-based translation
+ * Hook for dict translation with static en priority + API fallback.
+ * - ko: returns Korean immediately
+ * - en: returns static en value (falls back to API if missing)
+ * - ja: shows en as interim (not ko), then replaces with API translation
+ * - JSX values (non-string): uses en ?? ko fallback, no API call
+ * - On API failure: falls back to Korean
+ *
+ * Returns a `d(key)` accessor function matching existing component usage.
  */
-export function useAutoTranslatedDict<T extends Record<string, { ko: string; en?: string; ja?: string }>>(
-  dict: T
-): Record<keyof T, string> {
+export function useDictTranslation<T extends StaticDict>(dict: T) {
   const { lang } = useLanguage()
 
-  const getInitialValues = useCallback(() => {
-    const result = {} as Record<keyof T, string>
-    for (const key in dict) {
-      const value = dict[key]
-      result[key] = (value[lang] ?? value.ko) as string
-    }
-    return result
-  }, [dict, lang])
+  // Resolve static values: try target lang → en fallback → ko fallback
+  const resolveStatic = useCallback(
+    (targetLang: Language) => {
+      const result = {} as Record<keyof T, any>
+      for (const key in dict) {
+        const value = dict[key]
+        result[key] = value[targetLang] ?? value.en ?? value.ko
+      }
+      return result
+    },
+    [dict]
+  )
 
-  const [translated, setTranslated] = useState<Record<keyof T, string>>(getInitialValues)
+  const [values, setValues] = useState(() => resolveStatic(lang))
 
   useEffect(() => {
+    // ko: immediate
     if (lang === 'ko') {
-      setTranslated(getInitialValues())
+      setValues(resolveStatic('ko'))
       return
     }
 
-    setTranslated(getInitialValues())
+    // Set static values first (en uses en keys, ja uses en as interim)
+    const staticResult = resolveStatic(lang)
+    setValues(staticResult)
+
+    // Find keys needing API translation (no static value for this lang, and ko is a string)
+    const keysToTranslate: string[] = []
+    for (const key in dict) {
+      if (dict[key][lang] === undefined && typeof dict[key].ko === 'string') {
+        keysToTranslate.push(key)
+      }
+    }
+
+    if (keysToTranslate.length === 0) return
+
+    let cancelled = false
 
     const translateMissing = async () => {
-      const result = { ...getInitialValues() }
-      let hasChanges = false
-
-      for (const key in dict) {
-        const value = dict[key]
-        if (value[lang] === undefined && typeof value.ko === 'string') {
-          const translatedValue = await translateText(value.ko, lang as 'en' | 'ja')
-          if (translatedValue !== value.ko) {
-            result[key] = translatedValue as Record<keyof T, string>[keyof T]
-            hasChanges = true
-          }
+      const result = { ...staticResult }
+      for (const key of keysToTranslate) {
+        if (cancelled) return
+        try {
+          result[key as keyof T] = await translateText(dict[key].ko, lang as 'en' | 'ja')
+        } catch {
+          // Keep fallback (en or ko, already set in staticResult)
         }
       }
-
-      if (hasChanges) {
-        setTranslated(result)
+      if (!cancelled) {
+        setValues(result)
       }
     }
 
     translateMissing()
-  }, [dict, lang, getInitialValues])
 
-  return translated
+    return () => {
+      cancelled = true
+    }
+  }, [dict, lang, resolveStatic])
+
+  return useCallback((key: keyof T) => values[key], [values])
 }

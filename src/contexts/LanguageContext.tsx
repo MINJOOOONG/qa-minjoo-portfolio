@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
-export type Language = 'ko' | 'en' | 'ja'
+export type Language = 'ko' | 'en' | 'ja' | 'zh' | 'fr'
 
 type LanguageContextType = {
   lang: Language
@@ -21,7 +21,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   // Load language from localStorage on mount
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored && ['ko', 'en', 'ja'].includes(stored)) {
+    if (stored && ['ko', 'en', 'ja', 'zh', 'fr'].includes(stored)) {
       setLangState(stored as Language)
     }
     setIsLoading(false)
