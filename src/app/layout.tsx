@@ -1,8 +1,6 @@
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Metadata, Viewport } from 'next'
-import localFont from 'next/font/local'
-
-import { ssronetHandwritten } from './fonts'
+import { galmuri11Bold, mona12 } from './fonts'
 import {
   APPLICATION_NAME,
   APPLICATION_SHORT_NAME,
@@ -30,9 +28,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   alternates: { canonical: CANONICAL_URL },
   icons: {
-    icon: '/icon.png',
-    apple: '/apple-icon.png',
-    shortcut: '/shortcut-icon.png',
+    icon: '/favicon.svg',
+    apple: '/apple-touch-icon.png',
   },
   manifest: '/manifest.webmanifest',
   openGraph: {
@@ -65,22 +62,11 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 }
 
-const PretendardVariable = localFont({
-  src: './PretendardVariable.400-700.3713.woff2',
-  display: 'swap',
-  weight: '400 700',
-  fallback: [
-    '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto',
-    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
-    'Malgun Gothic', 'sans-serif',
-  ],
-})
-
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="ko">
       <head>
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color={THEME_COLOR} />
         <meta name="msapplication-TileColor" content="#2b5797" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -90,7 +76,7 @@ export default function RootLayout({ children }: LayoutProps) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       </head>
 
-      <body className={`${PretendardVariable.className} ${ssronetHandwritten.variable} antialiased`}>
+      <body className={`${galmuri11Bold.variable} ${mona12.variable} antialiased`}>
         <LanguageProvider>
           {children}
         </LanguageProvider>

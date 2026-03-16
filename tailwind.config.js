@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['var(--font-ssronet)'],
+        pixel: ['var(--font-galmuri)', 'monospace'],
+        body: ['var(--font-mona)', 'monospace'],
       },
     },
   },

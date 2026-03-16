@@ -7,24 +7,31 @@
 @tailwind utilities;
 
 /* ===========================
-   Dark Portfolio — Design Tokens
+   Design Tokens
    =========================== */
 
 :root {
-  --bg: #09090b;
-  --bg-surface: #131316;
-  --bg-elevated: #1c1c22;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(255, 255, 255, 0.12);
-  --text: #ececef;
-  --text-sub: #a0a0ab;
-  --text-muted: #55555e;
-  --accent: #8b5cf6;
-  --accent-hover: #7c3aed;
-  --accent-soft: rgba(139, 92, 246, 0.10);
-  --accent-glow: rgba(139, 92, 246, 0.06);
-  --green: #22c55e;
-  --green-soft: rgba(34, 197, 94, 0.10);
+  --bg: #0a0a0f;
+  --bg-surface: #111118;
+  --bg-elevated: #17171f;
+  --bg-card: #111118;
+  --border: rgba(139, 92, 246, 0.08);
+  --border-hover: rgba(139, 92, 246, 0.25);
+  --border-solid: #22222e;
+  --text: #f0f0f5;
+  --text-sub: #a8a8c0;
+  --text-muted: #5c5c72;
+  --accent: #a78bfa;
+  --accent-hover: #c4b5fd;
+  --accent-soft: rgba(167, 139, 250, 0.06);
+  --accent-glow: rgba(167, 139, 250, 0.03);
+  --green: #4ade80;
+  --green-soft: rgba(74, 222, 128, 0.06);
+  --cyan: #67e8f9;
+  --cyan-soft: rgba(103, 232, 249, 0.06);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(167, 139, 250, 0.06);
 }
 
 /* ===========================
@@ -32,7 +39,8 @@
    =========================== */
 
 html, body {
-  font-size: 15px;
+  font-family: var(--font-mona), 'Courier New', monospace;
+  font-size: 16px;
   padding: 0;
   margin: 0;
   line-height: 1.75;
@@ -42,91 +50,102 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Subtle dot grid */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(167, 139, 250, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
 button { cursor: pointer; }
 h1, h2, h3, h4, h5, h6, p { margin: 0; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
+  font-family: var(--font-galmuri), 'Courier New', monospace;
+  font-weight: 700;
   color: var(--text);
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
 }
 
 a {
-  color: var(--text-sub);
+  color: var(--accent);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color 0.2s ease;
 }
-a:hover { color: var(--text); }
+
+a:hover {
+  color: var(--accent-hover);
+}
 
 textarea { border: none; line-height: 1.75; }
-b, strong { font-weight: 600; color: var(--text); }
+b, strong { font-weight: 700; color: var(--text); }
 
 ::selection {
-  background: var(--accent-soft);
-  color: var(--text);
+  background: var(--accent);
+  color: var(--bg);
 }
 
 @media print {
   @page { size: A4; }
   body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body::before { display: none; }
 }
 
 /* ===========================
-   Section
+   Pixel Cat
    =========================== */
 
-.section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--accent);
-}
-
-.section-label::before {
-  content: '';
+.pixel-cat {
   display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 2px;
-  background: var(--accent);
+  position: relative;
+  width: 36px;
+  height: 28px;
+  image-rendering: pixelated;
 }
 
-.section-heading {
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--text);
-  margin-top: 0.5rem;
-  margin-bottom: 2rem;
+.pixel-cat::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 16'%3E%3Crect x='2' y='0' width='2' height='2' fill='%23a78bfa'/%3E%3Crect x='16' y='0' width='2' height='2' fill='%23a78bfa'/%3E%3Crect x='1' y='2' width='4' height='2' fill='%23a78bfa'/%3E%3Crect x='15' y='2' width='4' height='2' fill='%23a78bfa'/%3E%3Crect x='0' y='4' width='20' height='2' fill='%23a78bfa'/%3E%3Crect x='0' y='6' width='20' height='2' fill='%23a78bfa'/%3E%3Crect x='4' y='6' width='2' height='2' fill='%230a0a0f'/%3E%3Crect x='14' y='6' width='2' height='2' fill='%230a0a0f'/%3E%3Crect x='0' y='8' width='20' height='2' fill='%23a78bfa'/%3E%3Crect x='8' y='8' width='4' height='2' fill='%23f0abfc'/%3E%3Crect x='1' y='10' width='18' height='2' fill='%23a78bfa'/%3E%3Crect x='2' y='12' width='16' height='2' fill='%23a78bfa'/%3E%3Crect x='3' y='14' width='4' height='2' fill='%23a78bfa'/%3E%3Crect x='13' y='14' width='4' height='2' fill='%23a78bfa'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+.pixel-cat-animated {
+  animation: cat-bob 3s ease-in-out infinite;
+}
+
+@keyframes cat-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
 }
 
 /* ===========================
-   Pill / Tag
+   Cards
    =========================== */
 
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.3rem 0.65rem;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--text-sub);
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  transition: all 0.15s ease;
-  text-decoration: none;
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-solid);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.pill:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-soft);
+.card:hover {
+  border-color: rgba(167, 139, 250, 0.2);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
 }
 
 /* ===========================
@@ -136,15 +155,15 @@ b, strong { font-weight: 600; color: var(--text); }
 .status-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.75rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-galmuri), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   color: var(--green);
   background: var(--green-soft);
-  border: 1px solid rgba(34, 197, 94, 0.15);
-  border-radius: 20px;
+  border: 1px solid rgba(74, 222, 128, 0.15);
 }
 
 .status-dot {
@@ -161,71 +180,55 @@ b, strong { font-weight: 600; color: var(--text); }
 }
 
 /* ===========================
-   Experience
-   =========================== */
-
-.exp-item {
-  padding: 2rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.exp-item:last-child { border-bottom: none; }
-
-.exp-grid {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 2rem;
-}
-
-@media (max-width: 640px) {
-  .exp-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-}
-
-/* ===========================
    Divider
    =========================== */
 
-.divider {
+.section-divider {
   height: 1px;
-  background: var(--border);
+  background: linear-gradient(90deg, transparent, var(--border-solid) 20%, var(--border-solid) 80%, transparent);
 }
 
 /* ===========================
-   Table (Certificates)
+   Table
    =========================== */
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
+  font-family: var(--font-mona), monospace;
 }
 
 thead td {
-  font-weight: 600;
+  font-family: var(--font-galmuri), monospace;
+  font-weight: 700;
   font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-solid);
 }
 
 tbody td {
-  padding: 0.6rem 0.75rem;
-  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(34, 34, 46, 0.5);
   color: var(--text-sub);
+  line-height: 1.6;
 }
 
 tbody tr:last-child td { border-bottom: none; }
 
-tbody a {
-  color: var(--accent);
-  font-weight: 500;
+tbody tr {
+  transition: background 0.2s ease;
 }
-tbody a:hover { color: var(--text); }
+
+tbody tr:hover {
+  background: var(--accent-soft);
+}
+
+tbody a { color: var(--accent); font-weight: 500; }
+tbody a:hover { color: var(--accent-hover); }
 
 /* ===========================
    Details / Summary
@@ -234,11 +237,74 @@ tbody a:hover { color: var(--text); }
 details summary::-webkit-details-marker,
 details summary::marker { display: none; content: ''; }
 
+details summary {
+  font-family: var(--font-galmuri), monospace;
+}
+
 /* ===========================
    Scrollbar
    =========================== */
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+::-webkit-scrollbar-thumb {
+  background: var(--border-solid);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ===========================
+   Hero highlight
+   =========================== */
+
+.hero-highlight {
+  font-family: var(--font-galmuri), monospace;
+  color: var(--text);
+  position: relative;
+}
+
+.hero-highlight::after {
+  content: '|';
+  animation: cursor-blink 1.2s ease-in-out infinite;
+  color: var(--accent);
+  margin-left: 2px;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ===========================
+   Language button
+   =========================== */
+
+.lang-btn {
+  font-family: var(--font-galmuri), monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+  color: var(--accent);
+  border-color: var(--border-solid);
+  background: var(--accent-soft);
+}
+
+/* ===========================
+   Utility classes
+   =========================== */
+
+.font-pixel {
+  font-family: var(--font-galmuri), monospace;
+}
+
+.font-body {
+  font-family: var(--font-mona), monospace;
+}
